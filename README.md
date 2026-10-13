@@ -47,3 +47,22 @@ Buka folder proyek di Visual Studio Code, lalu tampilkan index.html menggunakan 
 
 ## Integritas akademik
 Pengerjaan proyek berkembang mengikuti kebijakan mata kuliah. AI generatif tidak diperkenankan pada tahap ini. Mahasiswa wajib mampu menjelaskan setiap elemen dan atribut yang digunakan.
+
+# Capaian Chapter 7
+1. Membuat REST API untuk SisaBaik.
+2. Menghubungkan API dengan database PostgreSQL.
+3. Membuat fitur pemesanan makanan.
+4. Menambahkan validasi request dan penanganan error.
+5. Melakukan pengujian API dan database.
+
+# Dokumentasi
+
+docs/API.md: dokumentasi API.
+
+docs/hasil-uji-chapter7.md: hasil pengujian.
+
+# Menjalankan API
+
+Jalankan server menggunakan perintah yang tersedia pada proyek. Pengujian API dapat dijalankan dengan npm run api:test.
+
+Pengujian konkurensi dapat dijalankan dengan node scripts/uji-konkurensi.js.
