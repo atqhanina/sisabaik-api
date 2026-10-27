@@ -66,3 +66,37 @@ docs/hasil-uji-chapter7.md: hasil pengujian.
 Jalankan server menggunakan perintah yang tersedia pada proyek. Pengujian API dapat dijalankan dengan npm run api:test.
 
 Pengujian konkurensi dapat dijalankan dengan node scripts/uji-konkurensi.js.
+
+
+# Autentikasi dan Otorisasi
+# Persiapan
+
+Pastikan Node.js, npm, dan PostgreSQL sudah tersedia.
+
+Konfigurasikan variabel lingkungan lokal di file .env berdasarkan kebutuhan aplikasi.
+
+Jalankan migrasi autentikasi database/07_auth.sql pada database pengembangan yang sesuai.
+
+Jalankan server dengan npm run dev.
+
+# Pengujian
+
+Jalankan pengujian autentikasi menggunakan:
+
+npm run auth:test
+
+Pengujian ini menjalankan rangkaian pemeriksaan autentikasi dan akses data. Pastikan database pengembangan telah dikonfigurasi dengan benar sebelum menjalankannya.
+
+# Registrasi dan akses
+
+Aplikasi mendukung akun pembeli dan penyedia. Akses penyedia mengikuti mekanisme verifikasi yang diterapkan aplikasi. Endpoint yang memerlukan autentikasi harus menggunakan token yang valid, sedangkan endpoint khusus penyedia juga memerlukan peran dan status verifikasi yang sesuai.
+
+# Keamanan
+
+Simpan kredensial dan rahasia hanya di .env lokal.
+
+Jangan masukkan .env, kata sandi, atau token ke Git.
+
+Logout digunakan untuk mencabut sesi sesuai mekanisme autentikasi aplikasi.
+
+Lihat docs/API.md untuk rincian endpoint, format request, dan respons API.
