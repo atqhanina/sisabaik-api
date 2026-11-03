@@ -100,3 +100,45 @@ Jangan masukkan .env, kata sandi, atau token ke Git.
 Logout digunakan untuk mencabut sesi sesuai mekanisme autentikasi aplikasi.
 
 Lihat docs/API.md untuk rincian endpoint, format request, dan respons API.
+
+## Chapter 9 — Frontend Vue SisaBaik
+
+### Teknologi
+- Node.js: v24.21.0
+- npm: v11.19.0
+- Vue: 3.5.43
+- Vite: 8.3.3
+
+### Menjalankan frontend
+
+Masuk ke folder frontend:
+
+# bash
+cd frontend
+npm install
+npm run dev
+
+Aplikasi development berjalan di:
+http://127.0.0.1:5173/
+
+### Build dan preview
+
+# bash
+npm run build
+npm run preview
+
+Preview berjalan di:
+http://127.0.0.1:4173/
+
+### Struktur frontend
+- src/assets: logo dan ilustrasi SVG.
+- src/components: komponen Vue.
+- src/data: data fixture latihan.
+- src/lib: fungsi utilitas dan visual.
+
+### Catatan
+Frontend Chapter 9 menggunakan data fixture di memori browser.
+Perubahan data latihan tidak disimpan secara permanen dan akan
+kembali ke data awal setelah halaman di-refresh.
+
+Frontend pada tahap ini belum terhubung ke API backend.
