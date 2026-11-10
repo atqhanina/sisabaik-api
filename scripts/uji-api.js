@@ -1,4 +1,3 @@
-
 import assert from "node:assert/strict";
 
 const base = process.argv[2] ?? "http://127.0.0.1:3000";
@@ -122,7 +121,6 @@ try {
     409,
   );
   assert.equal(kurang.body.error.code, "INSUFFICIENT_STOCK");
-
   const setelahGagal = await request(
     "GET",
     "/api/pesanan?limit=1",
@@ -168,7 +166,8 @@ try {
     },
     200,
   );
-  const snapshot = (await request("GET", order.location, undefined, 200)).body;
+  const snapshot = (await request("GET", order.location, undefined, 200))
+    .body;
   assert.equal(snapshot.data.items[0].hargaSatuan, 5000);
   assert.equal(snapshot.data.total, 10000);
   await request("DELETE", `/api/penawaran/${b.id}`, undefined, 204);

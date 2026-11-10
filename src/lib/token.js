@@ -1,4 +1,3 @@
-
 import jwt from "jsonwebtoken";
 import { randomUUID } from "node:crypto";
 import { authConfig } from "../config/auth.js";

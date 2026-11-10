@@ -141,4 +141,70 @@ Frontend Chapter 9 menggunakan data fixture di memori browser.
 Perubahan data latihan tidak disimpan secara permanen dan akan
 kembali ke data awal setelah halaman di-refresh.
 
-Frontend pada tahap ini belum terhubung ke API backend.
+Pada Chapter 9, frontend masih menggunakan data fixture di memori browser. Integrasi dengan backend Express dan PostgreSQL melalui REST API dilakukan pada Chapter 10.
+
+## Chapter 10 — Integrasi Full Stack SisaBaik dengan Vue dan REST API
+
+### 1. Fitur dan Alur Sistem
+
+#### A. Manajemen Pengguna
+•	Registrasi akun pembeli dan penyedia.
+•	Login dan logout menggunakan mekanisme autentikasi.
+•	Pengelolaan profil penyedia.
+•	Verifikasi penyedia sebelum memperoleh akses pengelolaan penawaran.
+#### B. Manajemen Penawaran
+•	Penyedia dapat membuat, melihat, dan mengubah penawaran.
+•	Penawaran memiliki informasi nama, kategori, harga normal, harga penawaran, stok, satuan, masa berlaku, status, dan foto.
+•	Foto penawaran divalidasi berdasarkan tipe dan ukuran file, kemudian diproses menjadi format WebP.
+•	Pengelolaan penawaran memperhatikan versi data untuk mencegah perubahan stok berdasarkan informasi yang sudah tidak terbaru.
+#### C. Katalog Penawaran
+•	Pembeli dapat melihat penawaran yang tersedia.
+•	Pencarian dan filter kategori dilakukan melalui API.
+•	Katalog menerapkan pagination untuk membatasi jumlah data yang ditampilkan.
+•	Penawaran yang tidak memenuhi ketentuan publikasi tidak ditampilkan pada katalog publik.
+#### D. Pemesanan dan Pengelolaan Transaksi
+Alur transaksi melibatkan pembeli dan penyedia melalui tahapan berikut:
+1.	Pembeli memilih penawaran dan menentukan kuantitas.
+2.	Sistem memvalidasi ketersediaan stok dan membuat pesanan.
+3.	Stok direservasi ketika pesanan berhasil dibuat.
+4.	Penyedia dapat mengonfirmasi atau menolak pesanan.
+5.	Pesanan yang dikonfirmasi dapat diproses hingga siap diambil.
+6.	Pembayaran dan pengambilan dicatat ketika proses serah terima diselesaikan.
+7.	Pesanan yang dibatalkan atau ditolak memulihkan stok sesuai aturan transaksi.
+#### E. Dashboard
+Dashboard menyajikan indikator berdasarkan data transaksi sesuai cakupan akun dan status transaksi, antara lain:
+•	Ringkasan jumlah pesanan.
+•	Nilai transaksi dan pendapatan.
+•	Informasi stok dan penawaran.
+•	Indikator transaksi selesai, dibatalkan, dan pengambilan.
+2. Aturan Bisnis dan Pengelolaan Data
+Beberapa aturan utama yang diterapkan dalam sistem:
+•	Harga dan total transaksi dihitung oleh server, bukan ditentukan oleh browser.
+•	Stok yang ditampilkan pada pengelolaan penawaran merupakan stok yang masih tersedia setelah memperhitungkan reservasi.
+•	Reservasi stok tidak langsung dihitung sebagai pendapatan.
+•	Pembatalan dan penolakan pesanan memulihkan stok sesuai kondisi transaksi.
+•	Pembayaran dan pengambilan dicatat berdasarkan penyelesaian serah terima.
+•	Pesanan gratis tidak menghasilkan pendapatan.
+•	Perubahan penawaran menggunakan informasi versi terbaru untuk menghindari konflik perubahan data.
+•	Akses data dibatasi berdasarkan autentikasi, peran pengguna, status verifikasi, dan kepemilikan data.
+3. Pengujian Sistem
+Pengujian dilakukan untuk memeriksa integrasi frontend, backend, database, serta aturan bisnis transaksi.
+Pengujian otomatis alur transaksi dapat dijalankan melalui:
+npm run workflow:test
+Pengujian otomatis dilakukan untuk memeriksa aturan bisnis dan alur transaksi pada backend. Sebanyak 26 skenario pengujian alur transaksi telah lulus:
+ Pengujian mencakup pengelolaan stok, pemesanan, pembatalan, pembayaran, pengambilan, validasi foto, konflik perubahan data, dan perhitungan dashboard.
+Pengujian manual melalui browser dilakukan secara terpisah untuk memeriksa tampilan, navigasi, interaksi formulir, respons API, serta kondisi aplikasi ketika terjadi gangguan koneksi.
+4. Batasan Sistem
+Pada tahap pengembangan ini, aplikasi masih memiliki beberapa batasan:
+•	Sesi autentikasi disimpan di memori aplikasi browser sehingga pengguna perlu login kembali setelah halaman di-refresh.
+•	Pembayaran dilakukan di luar payment gateway; sistem mencatat pembayaran yang diterima saat serah terima.
+•	Fitur reset kata sandi dan verifikasi email belum tersedia.
+•	Idempotency key untuk pengamanan request berulang belum diterapkan.
+•	Pembaruan data secara realtime belum tersedia.
+•	Perhitungan penghematan biaya penjual belum diimplementasikan.
+5. Keamanan dan Konfigurasi
+•	Konfigurasi database dan kredensial disimpan dalam file .env lokal.
+•	File .env tidak boleh dimasukkan ke repository Git.
+•	Endpoint yang memerlukan autentikasi harus menggunakan token yang valid.
+•	Hak akses ditentukan melalui peran, status verifikasi, dan kepemilikan data.
+•	Validasi input dan aturan transaksi dilakukan pada sisi server.

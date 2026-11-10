@@ -1,4 +1,3 @@
-
 export class HttpError extends Error {
   constructor(status, code, message) {
     super(message);
@@ -108,7 +107,12 @@ export function penawaranValid(body) {
     penyediaId: idValid(body.penyediaId, "penyediaId"),
     nama: teksValid(body.nama, "nama", 3, 120),
     kategori: teksValid(body.kategori, "kategori", 1, 40),
-    hargaNormal: angkaValid(body.hargaNormal, "hargaNormal", 1, 999999999999),
+    hargaNormal: angkaValid(
+      body.hargaNormal,
+      "hargaNormal",
+      1,
+      999999999999,
+    ),
     hargaPenawaran: angkaValid(
       body.hargaPenawaran,
       "hargaPenawaran",
@@ -136,7 +140,8 @@ export function penawaranValid(body) {
   const tahun = Number(waktu.slice(0, 4));
   const bulan = Number(waktu.slice(5, 7));
   const hari = Number(waktu.slice(8, 10));
-  const kabisat = tahun % 4 === 0 && (tahun % 100 !== 0 || tahun % 400 === 0);
+  const kabisat =
+    tahun % 4 === 0 && (tahun % 100 !== 0 || tahun % 400 === 0);
   const hariBulan = [
     31,
     kabisat ? 29 : 28,
